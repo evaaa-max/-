@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,10 +7,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
         header { background-color: #4CAF50; color: white; padding: 10px; text-align: center; }
-        .tab-container { display: flex; justify-content: space-between; }
-        .tab-button { flex: 1; padding: 10px; cursor: pointer; background-color: #f2f2f2; border: 1px solid #ddd; text-align: center; }
+        .tab-container { display: flex; justify-content: space-around; margin: 20px 0; }
+        .tab-button { flex: 1; padding: 10px; cursor: pointer; background-color: #f2f2f2; border: 1px solid #ddd; text-align: center; margin: 0 5px; }
         .tab-button.active { background-color: #4CAF50; color: white; }
         .tab { display: none; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: white; }
         .active { display: block; }
@@ -22,6 +22,19 @@
         .hidden { display: none; }
         iframe, video { width: 100%; height: 400px; margin-top: 20px; }
         h2 { text-align: center; }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .tab-button { font-size: 14px; padding: 8px; }
+            table { font-size: 14px; }
+            .button { width: 100%; }
+        }
+
+        @media (min-width: 769px) {
+            .tab-button { font-size: 16px; padding: 12px; }
+            table { font-size: 16px; }
+            .button { width: auto; }
+        }
     </style>
 </head>
 <body>
@@ -48,15 +61,15 @@
             </tr>
             <tr>
                 <td>Buyer:</td>
-                <td><input type="text" id="buyer"></td>
+                <td><input type="text" id="buyer" placeholder="Enter Buyer Name"></td>
             </tr>
             <tr>
                 <td>Operation:</td>
-                <td><input type="text" id="operation"></td>
+                <td><input type="text" id="operation" placeholder="Enter Operation"></td>
             </tr>
             <tr>
                 <td>Automation Level:</td>
-                <td><input type="text" id="automation"></td>
+                <td><input type="text" id="automation" placeholder="Enter Automation Level"></td>
             </tr>
             <tr>
                 <td>Video Type:</td>
