@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +15,7 @@
         .active { display: block; }
         .button { background-color: #4CAF50; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
         .button:hover { background-color: #45a049; }
-        table { width: 100%; margin: 20px 0; border-collapse: collapse; }
+        table { width: 200%; margin: 20px 0; border-collapse: collapse; }
         th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
         th { background-color: #f2f2f2; }
         .hidden { display: none; }
