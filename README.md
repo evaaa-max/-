@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +16,7 @@
         .active { display: block; }
         .button { background-color: #4CAF50; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
         .button:hover { background-color: #45a049; }
-        table { width: 200%; margin: 20px 0; border-collapse: collapse; }
+        table { width: 100%; margin: 20px 0; border-collapse: collapse; }
         th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
         th { background-color: #f2f2f2; }
         .hidden { display: none; }
@@ -229,7 +230,9 @@
             let selectedBuyer = $("#buyerSelect").val();
             $.get(scriptURL, function(data) {
                 let operations = data.filter(row => row[0] === selectedBuyer).map(row => row[1]);
-                $("#operationSelect").html('<option value="">Select Operation</option>' + operations.map(op => `<option>${op}</option>`).join(""));
+                // Use Set to ensure unique operations
+                let uniqueOperations = [...new Set(operations)];
+                $("#operationSelect").html('<option value="">Select Operation</option>' + uniqueOperations.map(op => `<option>${op}</option>`).join(""));
                 $("#automationSelect").html('<option value="">Select Automation Level</option>'); // Reset automation levels
             });
         }
