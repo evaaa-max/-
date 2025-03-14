@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,6 +34,15 @@
             .tab-button { font-size: 16px; padding: 12px; }
             table { font-size: 16px; }
             .button { width: auto; }
+        }
+
+        /* Full-width input fields */
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
     </style>
 </head>
