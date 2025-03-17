@@ -259,7 +259,7 @@
                 let smvEntry = data.find(row => row[0] === selectedBuyer && row[1] === selectedOperation && row[2] === selectedAutomation);
                 
                 if (smvEntry) {
-                    let smvValue = smvEntry[3]; // Assuming SMV is in the fourth column
+                    let smvValue = smvEntry[4]; // Assuming SMV is in the fifth column
                     $("#smvDisplay").text(smvValue);
                 } else {
                     $("#smvDisplay").text("No SMV found for the selected Buyer, Operation & Automation Level");
@@ -276,7 +276,7 @@
                 let videoEntry = data.find(row => row[0] === selectedBuyer && row[1] === selectedOperation && row[2] === selectedAutomation);
                 
                 if (videoEntry) {
-                    let videoUrl = videoEntry[4]; // Assuming video URL is in the fifth column
+                    let videoUrl = videoEntry[3]; // Assuming video URL is in the fourth column
 
                     if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
                         $("#videoFrame").attr("src", convertYouTubeURL(videoUrl)).removeClass("hidden");
