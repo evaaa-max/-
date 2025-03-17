@@ -129,13 +129,16 @@
             <tr>
                 <td>Select Automation Level:</td>
                 <td>
-                    <select id="automationSelect">
+                    <select id="automationSelect" onchange="displaySMV()">
                         <option value="">Select Automation Level</option>
                     </select>
                 </td>
             </tr>
         </table>
         <button class="button" onclick="loadVideo()">Load Video</button>
+
+        <h3>SMV:</h3>
+        <p id="smvDisplay"></p>
 
         <iframe id="videoFrame" class="hidden"></iframe>
         <video id="localVideo" class="hidden" controls></video>
@@ -233,6 +236,7 @@
                 let uniqueOperations = [...new Set(operations)];
                 $("#operationSelect").html('<option value="">Select Operation</option>' + uniqueOperations.map(op => `<option>${op}</option>`).join(""));
                 $("#automationSelect").html('<option value="">Select Automation Level</option>'); // Reset automation levels
+                $("#smvDisplay").text(""); // Reset SMV display
             });
         }
 
@@ -242,6 +246,24 @@
             $.get(scriptURL, function(data) {
                 let automationLevels = data.filter(row => row[0] === selectedBuyer && row[1] === selectedOperation).map(row => row[2]); // Assuming automation level is in the third column
                 $("#automationSelect").html('<option value="">Select Automation Level</option>' + [...new Set(automationLevels)].map(level => `<option>${level}</option>`).join(""));
+                $("#smvDisplay").text(""); // Reset SMV display
+            });
+        }
+
+        function displaySMV() {
+            let selectedBuyer = $("#buyerSelect").val();
+            let selectedOperation = $("#operationSelect").val();
+            let selectedAutomation = $("#automationSelect").val();
+            
+            $.get(scriptURL, function(data) {
+                let smvEntry = data.find(row => row[0] === selectedBuyer && row[1] === selectedOperation && row[2] === selectedAutomation);
+                
+                if (smvEntry) {
+                    let smvValue = smvEntry[3]; // Assuming SMV is in the fourth column
+                    $("#smvDisplay").text(smvValue);
+                } else {
+                    $("#smvDisplay").text("No SMV found for the selected Buyer, Operation & Automation Level");
+                }
             });
         }
 
@@ -254,7 +276,7 @@
                 let videoEntry = data.find(row => row[0] === selectedBuyer && row[1] === selectedOperation && row[2] === selectedAutomation);
                 
                 if (videoEntry) {
-                    let videoUrl = videoEntry[3];
+                    let videoUrl = videoEntry[4]; // Assuming video URL is in the fifth column
 
                     if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
                         $("#videoFrame").attr("src", convertYouTubeURL(videoUrl)).removeClass("hidden");
