@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -232,7 +233,6 @@
             let selectedBuyer = $("#buyerSelect").val();
             $.get(scriptURL, function(data) {
                 let operations = data.filter(row => row[0] === selectedBuyer).map(row => row[1]);
-                // Use Set to ensure unique operations
                 let uniqueOperations = [...new Set(operations)];
                 $("#operationSelect").html('<option value="">Select Operation</option>' + uniqueOperations.map(op => `<option>${op}</option>`).join(""));
                 $("#automationSelect").html('<option value="">Select Automation Level</option>'); // Reset automation levels
@@ -244,7 +244,7 @@
             let selectedBuyer = $("#buyerSelect").val();
             let selectedOperation = $("#operationSelect").val();
             $.get(scriptURL, function(data) {
-                let automationLevels = data.filter(row => row[0] === selectedBuyer && row[1] === selectedOperation).map(row => row[2]); // Assuming automation level is in the third column
+                let automationLevels = data.filter(row => row[0] === selectedBuyer && row[1] === selectedOperation).map(row => row[2]);
                 $("#automationSelect").html('<option value="">Select Automation Level</option>' + [...new Set(automationLevels)].map(level => `<option>${level}</option>`).join(""));
                 $("#smvDisplay").text(""); // Reset SMV display
             });
@@ -303,7 +303,7 @@
         }
 
         function convertYouTubeURL(url) {
-            let videoId = url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+            let videoId = url.match(/(?:v=|youtu\.be\/|\/embed\/|\/v\/|\/watch\?v=)([a-zA-Z0-9_-]{11})/);
             return videoId ? `https://www.youtube.com/embed/${videoId[1]}` : url;
         }
     </script>
