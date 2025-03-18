@@ -244,6 +244,7 @@
             let selectedOperation = $("#operationSelect").val();
             $.get(scriptURL, function(data) {
                 let automationLevels = data.filter(row => row[0] === selectedBuyer && row[1] === selectedOperation).map(row => row[2]);
+                console.log("Available Automation Levels:", [...new Set(automationLevels)]); // Debugging line
                 $("#automationSelect").html('<option value="">Select Automation Level</option>' + [...new Set(automationLevels)].map(level => `<option>${level}</option>`).join(""));
                 $("#smvDisplay").text(""); // Reset SMV display
             });
@@ -271,11 +272,16 @@
             let selectedOperation = $("#operationSelect").val();
             let selectedAutomation = $("#automationSelect").val();
             
+            console.log("Selected Buyer:", selectedBuyer);
+            console.log("Selected Operation:", selectedOperation);
+            console.log("Selected Automation Level:", selectedAutomation);
+            
             $.get(scriptURL, function(data) {
                 let videoEntry = data.find(row => row[0] === selectedBuyer && row[1] === selectedOperation && row[2] === selectedAutomation);
                 
                 if (videoEntry) {
                     let videoUrl = videoEntry[3]; // Assuming video URL is in the fourth column
+                    console.log("Video URL Found:", videoUrl);
 
                     if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
                         $("#videoFrame").attr("src", convertYouTubeURL(videoUrl)).removeClass("hidden");
@@ -292,6 +298,7 @@
                     }
                 } else {
                     $("#uploadMsg").text("No video found for the selected Buyer, Operation & Automation Level").css("color", "red");
+                    console.log("No video entry found for the selected criteria.");
                 }
             });
         }
@@ -302,8 +309,14 @@
         }
 
         function convertYouTubeURL(url) {
-            let videoId = url.match(/(?:v=|youtu\.be\/|\/embed\/|\/v\/|\/watch\?v=)([a-zA-Z0-9_-]{11})/);
-            return videoId ? `https://www.youtube.com/embed/${videoId[1]}` : url;
+            let videoId = url.match(/(?:v=|youtu\.be\/|\/embed\/|\/v\/|\/watch\?v=|\/shorts\/)([a-zA-Z0-9_-]{11})/);
+            if (videoId) {
+                return `https://www.youtube.com/embed/${videoId[1]}`;
+            } else {
+                // Handle YouTube Shorts specifically
+                let shortId = url.match(/(?:youtube\.com\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+                return shortId ? `https://www.youtube.com/embed/${shortId[1]}` : url;
+            }
         }
     </script>
 
